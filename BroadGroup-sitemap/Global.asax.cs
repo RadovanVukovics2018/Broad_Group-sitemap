@@ -1,10 +1,14 @@
-﻿using System;
+﻿using Ninject.Modules;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+using BroadGroup_sitemap.Models;
+using Ninject;
+using BroadGroup_sitemap.App_Start;
 
 namespace BroadGroup_sitemap
 {
@@ -12,6 +16,8 @@ namespace BroadGroup_sitemap
     {
         protected void Application_Start()
         {
+            DependencyResolver.SetResolver(new NinjectDependencyResolver());
+
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
