@@ -3,25 +3,34 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using BroadGroup_sitemap.interfaces;
+using System.Xml;
+using BroadGroup_sitemap.Interfaces;
 
 namespace BroadGroup_sitemap.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ICheckSitemap _checkSitemap;
+        private readonly IManageSitemap _manageSitemap;
 
-        public HomeController(ICheckSitemap checkSitemap)
+        public HomeController(IManageSitemap manageSitemap)
         {
-            _checkSitemap = checkSitemap;
+            _manageSitemap = manageSitemap;
         }
 
         
         public ActionResult Index()
         {
-            string proba = _checkSitemap.Check();
+            XmlDocument data = _manageSitemap.ReadXml();
+                                  
+            List<string> links = new List<string>();
 
-            //ViewBag.Proba = proba;
+            foreach(XmlNode node in data.DocumentElement.ChildNodes)
+            {
+                links.Add(node.ChildNodes[0].InnerText);
+            }
+
+            //ViewBag.Data = data;
+            ViewBag.XmlLinks = links;
 
             return View();
         }

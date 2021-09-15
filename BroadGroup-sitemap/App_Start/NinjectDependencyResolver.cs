@@ -1,4 +1,4 @@
-﻿using BroadGroup_sitemap.interfaces;
+﻿using BroadGroup_sitemap.Interfaces;
 using BroadGroup_sitemap.Models;
 using Ninject;
 using System;
@@ -30,7 +30,7 @@ namespace BroadGroup_sitemap.App_Start
 
         private void AddBindings()
         {
-            kernel.Bind<ICheckSitemap>().To<CheckSitemap>();
+            kernel.Bind<IManageSitemap>().To<ManageSitemap>();
 
         }
     }

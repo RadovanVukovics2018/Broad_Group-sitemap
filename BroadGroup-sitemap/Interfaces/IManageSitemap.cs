@@ -3,13 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml;
 
-namespace BroadGroup_sitemap.interfaces
+namespace BroadGroup_sitemap.Interfaces
 {
-    public interface ICheckSitemap
+    public interface IManageSitemap
     {
-        string ReadXml();
+        XmlDocument ReadXml();
         string DeleteXmlNode();
+
+        bool UrlIsValid(string url);
 
     }
 }

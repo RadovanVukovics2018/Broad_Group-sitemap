@@ -1,6 +1,8 @@
-﻿@{
+﻿@using System.Xml;
+
+@{
     ViewBag.Title = "Home Page";
-    
+
 }
 
 <div class="jumbotron">
@@ -9,11 +11,16 @@
     <p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
 </div>
 
+@foreach(string link in ViewBag.XmlLinks)
+{
+    <h2>@link</h2>
+}
+
 <div class="row">
     <div class="col-md-4">
         <h2>Getting started</h2>
         <p>
-            @*@ViewBag.Proba*@
+
             ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
             enables a clean separation of concerns and gives you full control over markup
             for enjoyable, agile development.
