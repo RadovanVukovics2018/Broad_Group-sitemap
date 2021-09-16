@@ -12,27 +12,51 @@ namespace BroadGroup_sitemap.Controllers
     {
         private readonly IManageSitemap _manageSitemap;
 
+
+        private static List<string> links = new List<string>();
+        private static List<string> notWorkingLinks = new List<string>();
+
         public HomeController(IManageSitemap manageSitemap)
         {
             _manageSitemap = manageSitemap;
         }
 
-        
+
+
         public ActionResult Index()
         {
-            XmlDocument data = _manageSitemap.ReadXml();
-                                  
-            List<string> links = new List<string>();
 
-            foreach(XmlNode node in data.DocumentElement.ChildNodes)
-            {
-                links.Add(node.ChildNodes[0].InnerText);
-            }
+            links = _manageSitemap.ReadLinksXml();
 
-            //ViewBag.Data = data;
+
             ViewBag.XmlLinks = links;
+            ViewBag.XmlLinksNotWorking = notWorkingLinks;
 
             return View();
+        }
+
+        public ActionResult CheckLinks()
+        {
+
+            notWorkingLinks = _manageSitemap.CheckLinks(links);
+
+            ViewBag.XmlLinks = links;
+            ViewBag.XmlLinksNotWorking = notWorkingLinks;
+
+            return View("Index");
+
+        }
+
+        public ActionResult Delete()
+        {
+            links = _manageSitemap.DeleteNotWorkingLinks(links, notWorkingLinks);
+
+            notWorkingLinks = new List<string>();
+
+            ViewBag.XmlLinks = links;
+            ViewBag.XmlLinksNotWorking = notWorkingLinks;
+
+            return View("Index");
         }
 
         public ActionResult About()

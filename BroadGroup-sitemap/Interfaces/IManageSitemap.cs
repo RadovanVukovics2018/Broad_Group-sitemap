@@ -9,10 +9,14 @@ namespace BroadGroup_sitemap.Interfaces
 {
     public interface IManageSitemap
     {
-        XmlDocument ReadXml();
-        string DeleteXmlNode();
+        List<string> ReadLinksXml();
+        List<string> DeleteNotWorkingLinks(List<string> all_links, List<string> bad_links);
 
         bool UrlIsValid(string url);
+
+        List<string> CheckLinks(List<string> links);
+
+        
 
     }
 }

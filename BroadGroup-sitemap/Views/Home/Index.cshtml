@@ -1,40 +1,84 @@
 ﻿@using System.Xml;
 
-@{
-    ViewBag.Title = "Home Page";
+@{ ViewBag.Title = "Home Page"; }
 
-}
-
-<div class="jumbotron">
-    <h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-    <p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
-</div>
-
-@foreach(string link in ViewBag.XmlLinks)
+@section Scripts
 {
-    <h2>@link</h2>
+    <script type="text/javascript">
+
+        $(function () {
+
+            $("#btnDelete").click(function () {
+
+                $.ajax({
+                    type: "GET",
+                    url: '/Home/Delete',
+
+                });
+
+            });
+        });
+
+        $(function () {
+
+            $("#btnCheck").click(function () {
+
+                $.ajax({
+                    type: "GET",
+                    url: '/Home/Delete',
+
+                });
+
+            });
+        });
+    </script>
 }
 
-<div class="row">
-    <div class="col-md-4">
-        <h2>Getting started</h2>
-        <p>
+<body>
 
-            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-            enables a clean separation of concerns and gives you full control over markup
-            for enjoyable, agile development.
-        </p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
+    <br>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-7">
+                <h2>Links</h2>
+
+                <form action="/Home/CheckLinks" method="GET">
+                    <button type="submit" class="btn btn-primary">Check Links</button>
+                </form>
+
+                @*<button class="btn btn-primary" id="btnCheck">Check Links</button>*@
+
+                <br /><br />
+                <ul class="list-group list-group-flush">
+                    @foreach (string link in ViewBag.XmlLinks)
+                    {
+                        <li class="list-group-item">
+                            <h4>@link</h4>
+                        </li>
+                    }
+                </ul>
+            </div>
+
+
+            <div class="col-md-5">
+                <h2>Log list</h2>
+                <form action="/Home/Delete" method="GET">
+                    <button type="submit" class="btn btn-danger">Delete All</button>
+                </form>
+
+                @*<button class="btn btn-danger" id="btnDelete">Delete All</button>*@
+
+
+                <br /><br />
+                <ul class="list-group list-group-flush">
+                    @foreach (string nw in ViewBag.XmlLinksNotWorking)
+                    {
+                        <li class="list-group-item">
+                            <h5 style="color:red">@nw</h5>
+                        </li>
+                    }
+                </ul>
+            </div>
+        </div>
     </div>
-    <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
-    </div>
-</div>
+</body>
